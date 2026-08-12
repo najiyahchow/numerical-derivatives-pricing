@@ -11,4 +11,12 @@ double black_scholes_call(
     double maturity
 );
 
+double black_scholes_put(
+    double spot,
+    double strike,
+    double rate,
+    double volatility,
+    double maturity
+);
+
 #endif

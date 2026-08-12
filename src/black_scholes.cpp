@@ -30,3 +30,27 @@ double black_scholes_call(
         - strike * std::exp(-rate * maturity) * normal_cdf(d2)
     );
 }
+
+double black_scholes_put(
+    double spot,
+    double strike,
+    double rate,
+    double volatility,
+    double maturity
+)
+{
+    double d1 =
+        (
+            std::log(spot / strike)
+            + (rate + 0.5 * volatility * volatility) * maturity
+        )
+        / (volatility * std::sqrt(maturity));
+
+    double d2 =
+        d1 - volatility * std::sqrt(maturity);
+
+    return (
+        strike * std::exp(-rate * maturity) * normal_cdf(-d2)
+        - spot * normal_cdf(-d1)
+    );
+}
