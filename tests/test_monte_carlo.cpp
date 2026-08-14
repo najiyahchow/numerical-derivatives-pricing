@@ -12,7 +12,7 @@ int main()
 
     int simulations = 100000;
 
-    double price = monte_carlo_european_call(
+    MonteCarloResult result = monte_carlo_european_call(
         spot,
         strike,
         rate,
@@ -21,9 +21,26 @@ int main()
         simulations
     );
 
+    double lower =
+        result.price - 1.96 * result.standard_error;
+
+    double upper =
+        result.price + 1.96 * result.standard_error;
+
     std::cout
-        << "Monte Carlo call price: "
-        << price
+        << "Monte Carlo price: "
+        << result.price
+        << std::endl;
+
+    std::cout
+        << "Standard error: "
+        << result.standard_error
+        << std::endl;
+
+    std::cout
+        << "95% confidence interval: ["
+        << lower << ", "
+        << upper << "]"
         << std::endl;
 
     return 0;

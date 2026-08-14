@@ -4,7 +4,7 @@
 #include <cmath>
 #include <random>
 
-double monte_carlo_european_call(
+MonteCarloResult monte_carlo_european_call(
     double spot,
     double strike,
     double rate,
@@ -17,6 +17,7 @@ double monte_carlo_european_call(
     std::normal_distribution<double> normal(0.0, 1.0);
 
     double payoff_sum = 0.0;
+    double payoff_squared_sum = 0.0;
 
     for (int i = 0; i < simulations; ++i)
     {
@@ -34,11 +35,28 @@ double monte_carlo_european_call(
         );
 
         payoff_sum += payoff;
+        payoff_squared_sum += payoff * payoff;
     }
 
-    double average_payoff =
+    double mean_payoff =
         payoff_sum / simulations;
 
-    return std::exp(-rate * maturity)
-        * average_payoff;
+    double payoff_variance =
+        (
+            payoff_squared_sum
+            - simulations * mean_payoff * mean_payoff
+        )
+        / (simulations - 1);
+
+    double discount =
+        std::exp(-rate * maturity);
+
+    double price =
+        discount * mean_payoff;
+
+    double standard_error =
+        discount
+        * std::sqrt(payoff_variance / simulations);
+
+    return {price, standard_error};
 }
