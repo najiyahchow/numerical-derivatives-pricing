@@ -10,38 +10,35 @@ int main()
     double volatility = 0.20;
     double maturity = 1.0;
 
-    int simulations = 100000;
+    int simulation_counts[] = {
+        1000,
+        5000,
+        10000,
+        50000,
+        100000,
+        500000,
+        1000000
+    };
 
-    MonteCarloResult result = monte_carlo_european_call(
-        spot,
-        strike,
-        rate,
-        volatility,
-        maturity,
-        simulations
-    );
+    for (int simulations : simulation_counts)
+    {
+        MonteCarloResult result =
+            monte_carlo_european_call(
+                spot,
+                strike,
+                rate,
+                volatility,
+                maturity,
+                simulations
+            );
 
-    double lower =
-        result.price - 1.96 * result.standard_error;
-
-    double upper =
-        result.price + 1.96 * result.standard_error;
-
-    std::cout
-        << "Monte Carlo price: "
-        << result.price
-        << std::endl;
-
-    std::cout
-        << "Standard error: "
-        << result.standard_error
-        << std::endl;
-
-    std::cout
-        << "95% confidence interval: ["
-        << lower << ", "
-        << upper << "]"
-        << std::endl;
+        std::cout
+            << "Simulations: " << simulations
+            << ", Price: " << result.price
+            << ", Standard error: "
+            << result.standard_error
+            << std::endl;
+    }
 
     return 0;
 }
