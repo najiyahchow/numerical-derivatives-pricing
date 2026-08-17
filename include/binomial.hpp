@@ -10,5 +10,14 @@ double binomial_european_call(
     int steps
 );
 
+double binomial_american_put(
+    double spot,
+    double strike,
+    double rate,
+    double volatility,
+    double maturity,
+    int steps
+);
+
 #endif
 
