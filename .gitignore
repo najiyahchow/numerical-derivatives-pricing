@@ -16,3 +16,6 @@ __pycache__/
 
 # Local executables
 test_black_scholes
+test_binomial
+test_monte_carlo
+test_american_put

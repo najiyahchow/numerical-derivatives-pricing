@@ -1,4 +1,6 @@
+import numpy as np
 import matplotlib.pyplot as plt
+
 
 steps = [10, 25, 50, 100, 250, 500, 1000]
 
@@ -22,26 +24,6 @@ slope, intercept = np.polyfit(log_steps, log_errors, 1)
 print(f"Estimated convergence slope: {slope:.4f}")
 print(f"Estimated convergence order: {-slope:.4f}")
 
-even_steps = [10, 50, 100, 250, 500, 1000]
-
-even_errors = [
-    0.197175,
-    0.039892,
-    0.0199719,
-    0.00799486,
-    0.00399844,
-    0.00199947,
-]
-
-even_slope, _ = np.polyfit(
-    np.log(even_steps),
-    np.log(even_errors),
-    1,
-)
-
-print(
-    f"selected-step convergence order: {-even_slope:.4f}"
-)
 
 plt.plot(steps, absolute_errors, marker="o")
 
