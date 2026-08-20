@@ -14,8 +14,6 @@ absolute_errors = [
     0.00199947,
 ]
 
-import numpy as np
-
 log_steps = np.log(steps)
 log_errors = np.log(absolute_errors)
 
